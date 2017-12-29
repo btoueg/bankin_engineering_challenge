@@ -870,6 +870,9 @@ hasiframe =
     (Q4BB.Y8 * H7) ==
   Q4BB.Q5 - Q4BB.x7;
 slowmode = Math[O4BB](Q4BB.o8 * Math[m4BB]()) % +Q4BB.Y8 == Q4BB.Q5 - Q4BB.x7;
+failmode = false;
+hasiframe = false;
+slowmode = false;
 if (start == undefined || start == NaN) {
   Q4BB.u7(Q4BB.l7()[Q4BB.q7][Q4BB.L7][Q4BB.q7]);
   var O4 = +Q4BB.K2,
