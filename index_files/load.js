@@ -8,19 +8,14 @@ Object.defineProperty(Q4BB, "Q5", {
     },
     set: val => { /* noop */ }
 });
-Object.defineProperty(Q4BB, "h4", {
-    get: function() { return this.val },
-    set: function(val) { this.val = function() {
-      if (arguments[0] == 38) {
-        return 'pus2'
-      }
-      return val.apply(this, arguments);
-    } }
-});
 
-Array.prototype.pus2h = function(item) {
-  console.log(item);
-  return this.push(item);
+const collector = new Array();
+const push = Array.prototype.push;
+Array.prototype.push = function(...args) {
+  if (args[0].length === 3) {
+    collector.push(args);
+  }
+  return push.call(this, ...args);
 }
 
 Q4BB.F5 = "581";
