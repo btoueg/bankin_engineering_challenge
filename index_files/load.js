@@ -18,7 +18,12 @@ const collector = new Array();
 const push = Array.prototype.push;
 Array.prototype.push = function(...args) {
   if (args[0].length === 3) {
-    collector.push(args);
+    const [account, transaction, amount] = args[0];
+    if (!(account === 'Account' && transaction === 'Transaction' && amount === 'Amount')) {
+      if (transaction.startsWith('Transaction ')) {
+        collector.push(args);
+      }
+    }
   }
   return push.call(this, ...args);
 }
