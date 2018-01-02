@@ -18,6 +18,11 @@ Array.prototype.push = function(...args) {
   return push.call(this, ...args);
 }
 
+const setTimoutStandard = setTimeout;  // optional: keep track for later restore
+setTimeout = (fn, delay) => fn();  // override setTimeout to prevent slowmode
+const alertStandard = alert;  // optional: keep track for later restore
+alert = console.log;  // override alert to prevent failmode execution pause
+
 Q4BB.F5 = "581";
 Q4BB.g2 = "31";
 Q4BB.L2 = "39797";
@@ -985,6 +990,23 @@ if (failmode == +Q4BB.L8) {
 } else {
   generate();
 }
+
+$(() => {
+  // run once jQuery init is complete
+
+  // if failmode is true, an HTML button to enable data generation is created
+  // find it and click it, if relevant
+  const reloadTransactionsButton = document.querySelector('#btnGenerate');
+  if (reloadTransactionsButton) {
+    reloadTransactionsButton.click()
+  }
+  // if iframe is true, the table is built in an iframe
+  // find the relevant document object
+  const iframe = document.querySelector('iframe');
+  const doc = iframe ? document.querySelector('iframe').contentWindow.document : document;
+  // select all td tags
+  doc.querySelectorAll('td').forEach(item => console.log(item.innerHTML))
+})
 
 for(start=50; start < 5000; start += 50) {
   doGenerate();
