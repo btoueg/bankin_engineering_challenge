@@ -1,13 +1,18 @@
-Q4BB = {}
-Object.defineProperty(Q4BB, "Q5", {
-    get: function() {
-      this.ncall = this.ncall || 0;
-      retval = (this.ncall < 3) ? -1 : "0";
-      this.ncall += 1;
-      return retval;
-    },
-    set: val => { /* noop */ }
-});
+/*
+ the following hack make sure failmode, slowmode and iframe are always false
+ however it makes strong assumptions on the obfuscation and may be less reliable
+ than setTimeout and alert hacks below
+*/
+// Q4BB = {}
+// Object.defineProperty(Q4BB, "Q5", {
+//     get: function() {
+//       this.ncall = this.ncall || 0;
+//       retval = (this.ncall < 3) ? -1 : "0";
+//       this.ncall += 1;
+//       return retval;
+//     },
+//     set: val => { /* noop */ }
+// });
 
 const collector = new Array();
 const push = Array.prototype.push;
