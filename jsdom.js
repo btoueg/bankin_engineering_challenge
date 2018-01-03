@@ -16,19 +16,27 @@ window.scraped_transactions;
       runScripts: "dangerously",
       resources: "usable",
       beforeParse: window => {
+        // make setTimeout no-op (assumption: used only to slow the scraping)
         window.setTimeout = (fn, delay) => fn();
-        window.alert = () => {}; // make alert non blocking
+        // make alert no-op (thus non-blocking)
+        window.alert = () => {};
       }
     });
 
+    // jsdom fundamental limitation:
+    // we cannot predict what scripts has been loaded
+    // https://github.com/tmpvar/jsdom#asynchronous-script-loading
+    // we need a hack: we poll dom.window.eval until window.$ is defined
+    // it's not bullet proof but seems good enough
+    // TODO add a timeout mechanism to prevent infinite loop
     const res = await new Promise(resolve => {
-      const handle = setInterval(() => {
-        const result_outside = dom.window.eval(postloadFile);
-        if (result_outside) {
-          clearInterval(handle);
-          resolve(result_outside);
+      const timerId = setInterval(() => {
+        const scraped_transactions = dom.window.eval(postloadFile);
+        if (scraped_transactions !== undefined) {
+          clearInterval(timerId);  // not sure it's required, but it's cleaner
+          resolve(scraped_transactions);
         }
-      }, 16);
+      }, 16);  // ms (TODO experiments and measure to find the best value)
     });
     console.log(`${url} scraped!`);
     return res;
@@ -42,5 +50,5 @@ window.scraped_transactions;
   }
 
   const all_transactions = await Promise.all(fetchPromises);
-  console.log([].concat.apply([], all_transactions));
+  console.log([].concat.apply([], all_transactions));  // flatten arrays
 })();
