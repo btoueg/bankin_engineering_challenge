@@ -1,4 +1,12 @@
 {
+  "//": "npm run chrome may not work on your machine",
+  "scripts": {
+    "chrome": "chrome index.htm",
+    "full_js": "time node full_js.js",
+    "jsdom": "time node jsdom.js",
+    "puppeteer": "time node puppeteer.js",
+    "reverse_engineer": "time node reverse_engineer.js"
+  },
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "jsdom": "^11.5.1",
