@@ -13,8 +13,8 @@ const postloadFile = fs.readFileSync("./postload.js", "utf8");
     // make setTimeout no-op (assumption: used only to slow the scraping)
     // make alert non-blocking
     await page.evaluateOnNewDocument(`
-      window.setTimeout = (fn, delay) => fn();
-      window.alert = window.console.log;
+      window.setTimeout = (fn, delay) => fn(); // fix slowmode
+      window.alert = window.console.log; // fix failmode
     `);
     await page.goto(url);
     await page.addScriptTag({ content: postloadFile });
@@ -30,6 +30,6 @@ const postloadFile = fs.readFileSync("./postload.js", "utf8");
   }
 
   const all_transactions = await Promise.all(fetchPromises);
-  console.log([].concat.apply([], all_transactions));  // flatten arrays
+  console.log([].concat.apply([], all_transactions)); // flatten arrays
   await browser.close();
 })();

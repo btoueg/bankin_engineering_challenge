@@ -8,10 +8,10 @@ amount_calculator = m =>
 const transactions = [];
 for (let i = 1; i < 5000; i++) {
   transactions.push({
-    account: i < 450 ? "Checking" : "Savings",  // reverse engineering magic
+    account: i < 450 ? "Checking" : "Savings", // reverse engineering magic
     transaction: `Transaction ${i}`,
     amount: amount_calculator(i),
-    currency: "€"  // always €
+    currency: "€" // always €
   });
 }
 console.log(transactions);

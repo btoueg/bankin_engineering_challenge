@@ -17,9 +17,9 @@ window.scraped_transactions;
       resources: "usable",
       beforeParse: window => {
         // make setTimeout no-op (assumption: used only to slow the scraping)
-        window.setTimeout = (fn, delay) => fn();
+        window.setTimeout = (fn, delay) => fn(); // fix slowmode
         // make alert no-op (thus non-blocking)
-        window.alert = () => {};
+        window.alert = () => {}; // fix failmode
       }
     });
 
@@ -33,10 +33,10 @@ window.scraped_transactions;
       const timerId = setInterval(() => {
         const scraped_transactions = dom.window.eval(postloadFile);
         if (scraped_transactions !== undefined) {
-          clearInterval(timerId);  // not sure it's required, but it's cleaner
+          clearInterval(timerId); // not sure it's required, but it's cleaner
           resolve(scraped_transactions);
         }
-      }, 16);  // ms (TODO experiments and measure to find the best value)
+      }, 16); // ms (TODO experiments and measure to find the best value)
     });
     console.log(`${url} scraped!`);
     return res;
@@ -50,5 +50,5 @@ window.scraped_transactions;
   }
 
   const all_transactions = await Promise.all(fetchPromises);
-  console.log([].concat.apply([], all_transactions));  // flatten arrays
+  console.log([].concat.apply([], all_transactions)); // flatten arrays
 })();
