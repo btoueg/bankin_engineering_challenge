@@ -50,5 +50,8 @@ window.scraped_transactions;
   }
 
   const all_transactions = await Promise.all(fetchPromises);
-  console.log([].concat.apply([], all_transactions)); // flatten arrays
+  const output = {
+    transactions: [].concat.apply([], all_transactions) // flatten arrays
+  };
+  fs.writeFileSync("./output.json", JSON.stringify(output, null, 2), "utf8");
 })();

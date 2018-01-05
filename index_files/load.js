@@ -53,4 +53,6 @@ for(start=scraped_transactions.length; start < 5000; start += 50) {
   doGenerate();
 }
 
-$('body').html(`<pre>${JSON.stringify(scraped_transactions, null, 2)}</pre>`)
+$('body').html(
+  `<pre>${JSON.stringify({ transactions: scraped_transactions}, null, 2)}</pre>`
+)

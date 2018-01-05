@@ -30,6 +30,9 @@ const postloadFile = fs.readFileSync("./postload.js", "utf8");
   }
 
   const all_transactions = await Promise.all(fetchPromises);
-  console.log([].concat.apply([], all_transactions)); // flatten arrays
+  const output = {
+    transactions: [].concat.apply([], all_transactions) // flatten arrays
+  };
+  fs.writeFileSync("./output.json", JSON.stringify(output, null, 2), "utf8");
   await browser.close();
 })();

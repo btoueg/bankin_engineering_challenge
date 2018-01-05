@@ -35,6 +35,9 @@ const preloadFile = fs.readFileSync("./preload.js", "utf8");
   }
   const all_transactions = await page.evaluate(`scraped_transactions`);
 
-  console.log([].concat.apply([], all_transactions)); // flatten arrays
+  const output = {
+    transactions: [].concat.apply([], all_transactions) // flatten arrays
+  };
+  fs.writeFileSync("./output.json", JSON.stringify(output, null, 2), "utf8");
   await browser.close();
 })();

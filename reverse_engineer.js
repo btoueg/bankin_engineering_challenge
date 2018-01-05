@@ -1,4 +1,5 @@
-var MD5 = require("crypto-js/md5");
+const fs = require("fs");
+const MD5 = require("crypto-js/md5");
 
 // by reverse engineering the web page, we find that
 // transactions' amount are computed client side with the following formula
@@ -14,4 +15,9 @@ for (let i = 1; i < 5000; i++) {
     currency: "€" // always €
   });
 }
-console.log(transactions);
+
+fs.writeFileSync(
+  "./output.json",
+  JSON.stringify({ transactions }, null, 2),
+  "utf8"
+);
