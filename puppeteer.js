@@ -11,11 +11,9 @@ const postloadFile = fs.readFileSync("./postload.js", "utf8");
     const page = await browser.newPage();
     await page.setJavaScriptEnabled(true);
     // make setTimeout no-op (assumption: used only to slow the scraping)
+    await page.evaluateOnNewDocument('window.setTimeout = (fn, delay) => fn();');
     // make alert non-blocking
-    await page.evaluateOnNewDocument(`
-      window.setTimeout = (fn, delay) => fn(); // fix slowmode
-      window.alert = window.console.log; // fix failmode
-    `);
+    page.on('dialog', dialog => { dialog.dismiss() });
     await page.goto(url);
     await page.addScriptTag({ content: postloadFile });
     console.log(`${url} scraped!`);
