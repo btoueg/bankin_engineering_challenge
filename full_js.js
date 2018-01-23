@@ -25,7 +25,7 @@ const preloadFile = fs.readFileSync("./preload.js", "utf8");
   // we tried moving the for loop inside the addScriptTag content but...
   // it does not work!?
   const start_at = await page.evaluate(`scraped_transactions.length`);
-  for (start = start_at; start < 5000; start += 50) {
+  for (start = start_at; start < 4999; start += 50) {
     await page.addScriptTag({
       content: `
         window.start = ${start};

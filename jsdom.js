@@ -43,7 +43,7 @@ window.scraped_transactions;
   };
 
   const fetchPromises = [];
-  for (start = 0; start < 5000; start += 50) {
+  for (start = 0; start < 4999; start += 50) {
     fetchPromises.push(
       fetchPage(`http://web.bankin.com/challenge/index.html?start=${start}`)
     );
